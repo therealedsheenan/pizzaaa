@@ -19,17 +19,15 @@ Total.propTypes = {
   total: PropTypes.number
 };
 
-const mapStateToProps = ({ cart }) => {
-  return {
-    total: cart
-      .map(c => {
-        const totalToppingsPrice = c.toppings
-          .map(t => (t.selected ? t.topping.price : 0))
-          .reduce((acc, curr) => acc + curr);
-        return totalToppingsPrice + c.basePrice;
-      }, [])
-      .reduce((acc, curr) => acc + curr, 0)
-  };
-};
+const mapStateToProps = ({ cart }) => ({
+  total: cart
+    .map(c => {
+      const totalToppingsPrice = c.toppings
+        .map(t => (t.selected ? t.topping.price : 0))
+        .reduce((acc, curr) => acc + curr);
+      return totalToppingsPrice + c.basePrice;
+    }, [])
+    .reduce((acc, curr) => acc + curr, 0)
+});
 
 export default connect(mapStateToProps)(Total);
