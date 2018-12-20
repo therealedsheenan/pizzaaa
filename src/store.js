@@ -1,30 +1,29 @@
-import { configureStore, getDefaultMiddleware } from 'redux-starter-kit'
-import { reduxBatch } from '@manaflair/redux-batch'
+import { configureStore, getDefaultMiddleware } from 'redux-starter-kit';
+import { reduxBatch } from '@manaflair/redux-batch';
 
-import todosReducer from './reducers/todos'
+import cartReducer from './reducer';
 
-const reducer = {
-  todos: todosReducer
-}
+export default apolloData => {
+  const reducer = {
+    pizza: (state = []) => state,
+    cart: cartReducer,
+    toppings: (state = []) => state
+  };
 
-const middleware = [...getDefaultMiddleware()]
+  const middleware = [...getDefaultMiddleware()];
 
-const preloadedState = {
-  todos: [
-    {
-      text: 'Eat Pizza',
-      completed: true
-    }
-  ],
-  visibilityFilter: 'SHOW_COMPLETED'
-}
+  const preloadedState = {
+    pizza: apolloData.pizza,
+    toppings: apolloData.pizza[0].toppings
+  };
 
-const store = configureStore({
-  reducer,
-  middleware,
-  devTools: process.env.NODE_ENV !== 'production',
-  preloadedState,
-  enhancers: [reduxBatch]
-})
+  const store = configureStore({
+    reducer,
+    middleware,
+    devTools: process.env.NODE_ENV !== 'production',
+    preloadedState,
+    enhancers: [reduxBatch]
+  });
 
-export default store
+  return store;
+};

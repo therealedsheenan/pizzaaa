@@ -1,28 +1,25 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
+import { Grid } from 'semantic-ui-react';
+
+import Pizza from './components/Pizza';
+import Cart from './components/Cart';
+import Total from './components/Total';
+
+import 'semantic-ui-css/semantic.min.css';
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
-}
+const App = () => (
+  <Grid celled="internally">
+    <Grid.Row className="App" celled="internally">
+      <Grid.Column width={4}>
+        <Pizza />
+        <Total />
+      </Grid.Column>
+      <Grid.Column width={12} className="cart">
+        <Cart />
+      </Grid.Column>
+    </Grid.Row>
+  </Grid>
+);
 
 export default App;
